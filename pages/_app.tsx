@@ -2,6 +2,8 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { MoralisProvider } from "react-moralis";
 
+import Layout from "../components/layout";
+
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -13,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Alice & Bob's Swap Shop</title>
       </Head>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </MoralisProvider>
   );
 }
