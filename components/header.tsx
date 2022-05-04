@@ -10,7 +10,7 @@ const getAddressAlias = (ethAddress: string): string => {
 };
 
 const Header: React.FC = () => {
-  const { authenticate, isAuthenticated, user } = useMoralis();
+  const { authenticate, isAuthenticated, user, logout } = useMoralis();
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
     setName(getAddressAlias(user!.get("ethAddress")));
   }, [isAuthenticated]);
 
-  const login = async () => {
+  const logIn = async () => {
     if (isAuthenticated) {
       return;
     }
@@ -33,6 +33,11 @@ const Header: React.FC = () => {
         console.log(error);
       });
   };
+
+  const logOut = async () => {
+    await logout();
+  };
+
   return (
     <div className="bg-slate-900/10">
       <header className="container flex justify-between py-4 items-center">
@@ -48,7 +53,11 @@ const Header: React.FC = () => {
           </Link>
         </div>
 
-        <button type="button" className="btn" onClick={login}>
+        <button
+          type="button"
+          className="btn"
+          onClick={isAuthenticated ? logOut : logIn}
+        >
           {isAuthenticated ? name : "Connect"}
         </button>
       </header>
