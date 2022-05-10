@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useNFTBalances } from "react-moralis";
+import TokenCard from "../components/token-card";
 
 import { useVerifyMetadata } from "../hooks/useVerifyMetadata";
 
@@ -8,18 +9,12 @@ const Swap: NextPage = () => {
   const { verifyMetadata } = useVerifyMetadata();
 
   return (
-    <div className="container flex gap-12 py-8 h-full">
-      <div className="flex-1 border rounded bg-slate-200 flex flex-wrap gap-2">
+    <div className="container flex gap-12 py-8 h-2/3">
+      <div className="flex-1 border rounded bg-slate-200 flex flex-wrap gap-2 p-4">
         {nfts &&
           nfts.result!.map((nft, i) => {
             nft = verifyMetadata(nft);
-            return (
-              <img
-                key={i}
-                className={`w-20 h-20`}
-                src={nft.metadata?.image}
-              ></img>
-            );
+            return <TokenCard key={i} token={nft as any}></TokenCard>;
           })}
       </div>
       <div className="flex-1 border rounded bg-slate-200"></div>
