@@ -1,5 +1,9 @@
 import type { NextPage } from "next";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useNFTBalances } from "react-moralis";
+
+import SwapBoard from "../components/swap-board";
 import TokenCard from "../components/token-card";
 
 import { useVerifyMetadata } from "../hooks/useVerifyMetadata";
@@ -10,14 +14,15 @@ const Swap: NextPage = () => {
 
   return (
     <div className="container flex gap-12 py-8 h-2/3">
-      <div className="flex-1 border rounded bg-slate-200 flex flex-wrap gap-2 p-4">
-        {nfts &&
-          nfts.result!.map((nft, i) => {
+      <DndProvider backend={HTML5Backend}>
+        <SwapBoard name="wallet-box">
+          {nfts?.result!.map((nft, i) => {
             nft = verifyMetadata(nft);
             return <TokenCard key={i} token={nft as any}></TokenCard>;
           })}
-      </div>
-      <div className="flex-1 border rounded bg-slate-200"></div>
+        </SwapBoard>
+        <SwapBoard name="trade-box" />
+      </DndProvider>
     </div>
   );
 };
