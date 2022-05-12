@@ -1,10 +1,14 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { MoralisProvider } from "react-moralis";
+import { Provider } from "react-redux";
 
 import Layout from "../components/layout";
+import { setupStore } from "../store/store";
 
 import "../styles/globals.css";
+
+const store = setupStore();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -19,9 +23,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Alice & Bob's Swap Shop</title>
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </MoralisProvider>
   );
 }

@@ -1,14 +1,9 @@
-import Moralis from "moralis/types";
 import { useDrag } from "react-dnd";
+
 import { ItemTypes } from "../models/item-types";
+import { Token } from "../models/token";
 
-interface IProps {
-  token: Moralis.NFTResult & {
-    metadata?: any;
-  };
-}
-
-const TokenCard: React.FC<IProps> = ({ token }) => {
+const TokenCard: React.FC<{ token: Token }> = ({ token }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TOKENCARD,
     item: token,
