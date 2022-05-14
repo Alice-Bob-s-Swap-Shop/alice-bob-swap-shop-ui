@@ -26,7 +26,9 @@ export const swapSlice = createSlice({
         toBoard === BoardTypes.WALLET ? BoardTypes.TRADE : BoardTypes.WALLET;
 
       const index = state[fromBoard].findIndex(
-        (item) => item.token_address === token.token_address
+        (item) =>
+          item.token_address === token.token_address &&
+          item.token_id === token.token_id
       );
       state[fromBoard].splice(index, 1);
       state[toBoard].push(token);

@@ -31,12 +31,18 @@ const Swap: NextPage = () => {
       <DndProvider backend={HTML5Backend}>
         <SwapBoard name={BoardTypes.WALLET}>
           {walletBoard.map((token) => (
-            <TokenCard key={token.token_address} token={token}></TokenCard>
+            <TokenCard
+              key={token.token_address + token.token_id}
+              token={token}
+            ></TokenCard>
           ))}
         </SwapBoard>
         <SwapBoard name={BoardTypes.TRADE}>
           {tradeBoard.map((token, i) => (
-            <TokenCard key={token.token_address} token={token}></TokenCard>
+            <TokenCard
+              key={token.token_address + token.token_id}
+              token={token}
+            ></TokenCard>
           ))}
         </SwapBoard>
       </DndProvider>
