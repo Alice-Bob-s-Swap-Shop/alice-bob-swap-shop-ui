@@ -1,8 +1,9 @@
 import { useDrop } from "react-dnd";
-import { ItemTypes } from "../models/item-types";
+
+import { BoardTypes, ItemTypes } from "../models";
 
 interface IProps {
-  name: string;
+  name: BoardTypes;
   children?: React.ReactNode;
 }
 

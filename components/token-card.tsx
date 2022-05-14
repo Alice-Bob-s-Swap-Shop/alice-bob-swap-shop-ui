@@ -1,16 +1,18 @@
 import { useDrag } from "react-dnd";
 
-import { ItemTypes } from "../models/item-types";
-import { Token } from "../models/token";
+import { BoardTypes, ItemTypes, Token } from "../models";
+import { useAppDispatch } from "../store/hooks/redux";
+import { moveToken } from "../store/swap/swap-slice";
 
 const TokenCard: React.FC<{ token: Token }> = ({ token }) => {
+  const dispatch = useAppDispatch();
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TOKENCARD,
     item: token,
     end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<{ name: string }>();
+      const dropResult = monitor.getDropResult<{ name: BoardTypes }>();
       if (item && dropResult) {
-        alert(`You dropped ${item.name} into ${dropResult.name}!`);
+        dispatch(moveToken({ toBoard: dropResult.name, token: item }));
       }
     },
     collect: (monitor) => ({
